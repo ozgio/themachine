@@ -1,16 +1,17 @@
-[gd_scene load_steps=17 format=4 uid="uid://xt6vbwwmf4no"]
+[gd_scene load_steps=18 format=4 uid="uid://xt6vbwwmf4no"]
 
 [ext_resource type="Texture2D" uid="uid://cofeahm3n84kh" path="res://assets/mystic_woods/sprites/tilesets/plains.png" id="1_rlaii"]
-[ext_resource type="Script" uid="uid://cv82t1da3gyoa" path="res://src/data/inventory.gd" id="1_uewes"]
+[ext_resource type="Script" uid="uid://cv82t1da3gyoa" path="res://src/player/inventory.gd" id="1_uewes"]
 [ext_resource type="Texture2D" uid="uid://ehj5l5xaog5x" path="res://assets/mystic_woods/sprites/tilesets/grass.png" id="2_5mrjc"]
 [ext_resource type="Texture2D" uid="uid://c4mn4l68fyr5l" path="res://assets/mystic_woods/sprites/objects/objects.png" id="3_kf8lf"]
 [ext_resource type="Texture2D" uid="uid://bnqdysjfssrmb" path="res://assets/own/mars1.png" id="4_mgm53"]
 [ext_resource type="PackedScene" uid="uid://c6xllxi1raxd6" path="res://src/entities/tree.tscn" id="5_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://cv3cn8d1m2u6l" path="res://src/entities/tree2.tscn" id="5_kf8lf"]
-[ext_resource type="PackedScene" uid="uid://bo6idh2lwyufo" path="res://src/entities/player.tscn" id="5_uewes"]
+[ext_resource type="PackedScene" uid="uid://bo6idh2lwyufo" path="res://src/player/player.tscn" id="5_uewes"]
 [ext_resource type="PackedScene" uid="uid://bq2v2mfguw7oq" path="res://src/entities/crystal.tscn" id="6_kqbth"]
 [ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://src/entities/enemy.tscn" id="7_srxbw"]
 [ext_resource type="PackedScene" uid="uid://bym3dw4ys22f8" path="res://src/ui/health_bar.tscn" id="10_mgm53"]
+[ext_resource type="PackedScene" uid="uid://dht28x5qdt0sf" path="res://src/ui/inventory_bar.tscn" id="12_kqbth"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ab4xk"]
 texture = ExtResource("1_rlaii")
@@ -124,7 +125,7 @@ sources/3 = SubResource("TileSetAtlasSource_epdd6")
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 
-[node name="PlayerInventory" type="Node2D" parent="."]
+[node name="PlayerInventory" type="Node2D" parent="." groups=["Inventory"]]
 script = ExtResource("1_uewes")
 
 [node name="Ground" type="Node2D" parent="."]
@@ -174,7 +175,7 @@ position = Vector2(-176, 136)
 [node name="Enemy" parent="." instance=ExtResource("7_srxbw")]
 position = Vector2(-33, 152)
 
-[node name="Player" parent="." instance=ExtResource("5_uewes")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("5_uewes")]
 position = Vector2(162, 233)
 collision_layer = 1
 collision_mask = 1
@@ -182,12 +183,23 @@ collision_mask = 1
 [node name="Hud" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="Hud"]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="HealthBar" parent="Hud/MarginContainer" node_paths=PackedStringArray("player") instance=ExtResource("10_mgm53")]
+[node name="HBoxContainer" type="HBoxContainer" parent="Hud/MarginContainer"]
 layout_mode = 2
-player = NodePath("../../../Player")
+
+[node name="HealthBar" parent="Hud/MarginContainer/HBoxContainer" node_paths=PackedStringArray("player") instance=ExtResource("10_mgm53")]
+layout_mode = 2
+size_flags_horizontal = 3
+player = NodePath("../../../../Player")
+
+[node name="InventoryBar" parent="Hud/MarginContainer/HBoxContainer" node_paths=PackedStringArray("inventory") instance=ExtResource("12_kqbth")]
+layout_mode = 2
+size_flags_horizontal = 3
+inventory = NodePath("../../../../PlayerInventory")

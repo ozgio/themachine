@@ -9,14 +9,12 @@ var items:Array[ItemStack] = []
 func _ready() -> void:
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func add_item(item:CollectableStats):
 	for el in items:
 		if el.item.id == item.id:
 			el.count += 1
+			updated.emit()
 			return
 	items.append(ItemStack.new(item, 1))
 	updated.emit()

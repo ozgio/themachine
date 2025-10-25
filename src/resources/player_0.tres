@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_x2w6s")
-health = 90
-max_health = 1000
+health = 100.0
+max_health = 100.0
 speed = 100.0
 metadata/_custom_type_script = "uid://eu36sjtmmmtk"
