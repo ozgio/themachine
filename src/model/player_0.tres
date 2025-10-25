@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="CharStats" load_steps=2 format=3 uid="uid://ckthf16433tkt"]
-
-[ext_resource type="Script" uid="uid://eu36sjtmmmtk" path="res://src/model/char_stats.gd" id="1_x2w6s"]
-
-[resource]
-script = ExtResource("1_x2w6s")
-health = 20
-speed = 10.0
-metadata/_custom_type_script = "uid://eu36sjtmmmtk"
