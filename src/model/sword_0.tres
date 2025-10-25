@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=2 format=3 uid="uid://dnbwqghksfdbf"]
+
+[ext_resource type="Script" uid="uid://du8rrwtbwmbhr" path="res://src/model/weapon_stats.gd" id="1_6mqji"]
+
+[resource]
+script = ExtResource("1_6mqji")
+damage = 5.0
+speed = 2.0
+metadata/_custom_type_script = "uid://du8rrwtbwmbhr"

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq2v2mfguw7oq"]
+
+[ext_resource type="PackedScene" uid="uid://s0avgoj8exc5" path="res://sprite_2d.tscn" id="1_200vn"]
+
+[node name="Crystal" instance=ExtResource("1_200vn")]
