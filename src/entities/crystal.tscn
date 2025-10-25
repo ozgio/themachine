@@ -1,14 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://s0avgoj8exc5"]
+[gd_scene load_steps=4 format=3 uid="uid://bq2v2mfguw7oq"]
 
-[ext_resource type="Texture2D" uid="uid://lulo4qql16fd" path="res://crystal.png" id="1_f7cmv"]
-[ext_resource type="Script" uid="uid://h3qkfhgp6ax7" path="res://crystal.gd" id="2_mehiu"]
+[ext_resource type="Texture2D" uid="uid://lulo4qql16fd" path="res://assets/own/crystal.png" id="1_f7cmv"]
+[ext_resource type="Script" uid="uid://h3qkfhgp6ax7" path="res://src/entities/crystal.gd" id="2_mehiu"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mehiu"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1f34"]
+size = Vector2(9, 4)
 
-[node name="Sprite2D" type="Sprite2D"]
-texture = ExtResource("1_f7cmv")
-script = ExtResource("2_mehiu")
+[node name="Crystal" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_mehiu")
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_k1f34")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -5)
+texture = ExtResource("1_f7cmv")
+script = ExtResource("2_mehiu")

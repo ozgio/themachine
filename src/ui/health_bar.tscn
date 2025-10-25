@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://bym3dw4ys22f8"]
+
+[ext_resource type="Script" uid="uid://y8guc0d74yg5" path="res://src/ui/health_bar.gd" id="1_ienf7"]
+
+[node name="HealthBar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ienf7")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 22.0
+text = "Health"
+vertical_alignment = 1
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_right = 144.0
+offset_bottom = 20.0
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="Bar" type="ColorRect" parent="Background"]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 20.0
+color = Color(0.97, 0, 0.01616642, 1)
+
+[node name="Amount" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 64.0
+offset_right = 144.0
+offset_bottom = 22.0
+text = "100/100"
+vertical_alignment = 1

@@ -1,8 +1,17 @@
-
 # TODO
 ## Links
 - https://drive.google.com/drive/folders/1MfBmCSsHLix_9Ql00VaqgezyxUeGA6sr
 - https://github.com/ozgio/themachine
+
+## Oz
+- Crystal touch
+- Player inventory data struct.
+- UI: Player inventory (show at top)
+- Crystal Collect
+- UI: Health bar
+- Show crystals at random places (interval, with max crystals)
+- Collectable group
+
 
 ## GameDev
 - [E] Kamera
@@ -32,7 +41,7 @@
 	- Fight
 - Astronaut cat
 	- Idle
-    - Walk
+	- Walk
 - Alien x ?
 	- Idle
 	- Walk (bloblar icin idle ve walk ayni)
@@ -53,8 +62,8 @@
   - Player
   - Machine
 - engine: upgrade button
-  -  
-- Game over 
+  -
+- Game over
 
 ## Final
 - Web build

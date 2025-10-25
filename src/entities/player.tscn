@@ -1,82 +1,14 @@
-[gd_scene load_steps=75 format=3 uid="uid://bo6idh2lwyufo"]
+[gd_scene load_steps=76 format=3 uid="uid://bo6idh2lwyufo"]
 
 [ext_resource type="Texture2D" uid="uid://b222upu2y1dgf" path="res://assets/char/PNG/Unarmed_Walk/Unarmed_Walk_full.png" id="1_bybgf"]
+[ext_resource type="Script" uid="uid://b7uop3tqw8k4m" path="res://src/entities/player.gd" id="1_s0nk1"]
+[ext_resource type="Resource" uid="uid://ckthf16433tkt" path="res://src/resources/player_0.tres" id="2_ms0oa"]
 [ext_resource type="Texture2D" uid="uid://cu11gsjhpy0kw" path="res://assets/char/PNG/Unarmed_Death/Unarmed_Death_full.png" id="2_vypra"]
 [ext_resource type="Texture2D" uid="uid://c5fy3xwouulyu" path="res://assets/char/PNG/Unarmed_Idle/Unarmed_Idle_full.png" id="3_lx8r4"]
 [ext_resource type="Texture2D" uid="uid://cbpbxprpmfu3t" path="res://assets/char/PNG/Sword_attack/Sword_attack_full.png" id="4_cadss"]
 
-[sub_resource type="GDScript" id="GDScript_bktlc"]
-script/source = "extends CharacterBody2D
-
-const speed = 100
-var current_dir = \"none\"
-
-func _ready():
-	$AnimatedSprite2D.play(\"idle\")
-
-func _physics_process(delta):
-	player_movement(delta)
-
-func player_movement(delta):
-
-	if Input.is_action_pressed(\"ui_right\"):
-		velocity.x = speed
-		velocity.y = 0
-		current_dir = \"right\"
-		play_anim(1)
-	elif Input.is_action_pressed(\"ui_left\"):
-		current_dir = \"left\"
-		velocity.x = -speed
-		velocity.y = 0
-		play_anim(1)
-	elif Input.is_action_pressed(\"ui_down\"):
-		current_dir = \"down\"
-		velocity.y = speed
-		velocity.x = 0
-		play_anim(1)
-	elif Input.is_action_pressed(\"ui_up\"):
-		current_dir = \"up\"
-		velocity.y = -speed
-		velocity.x = 0
-		play_anim(1)
-	else:
-		play_anim(0)
-		velocity.y = 0
-		velocity.x = 0
-	move_and_slide()
-
-func play_anim(movement):
-	var dir = current_dir
-	var anim = $AnimatedSprite2D
-
-	if dir == \"right\":
-		anim.flip_h = false
-		if movement == 1:
-			anim.play(\"right_walk\")
-		elif movement == 0:
-			anim.play(\"idle\")
-	if dir == \"left\":
-		anim.flip_h = true
-		if movement == 1:
-			anim.play(\"right_walk\")
-		elif movement == 0:
-			anim.play(\"idle\")
-	if dir == \"down\":
-		anim.flip_h = true
-		if movement == 1:
-			anim.play(\"front_walk\")
-		elif movement == 0:
-			anim.play(\"idle\")
-	if dir == \"up\":
-		anim.flip_h = true
-		if movement == 1:
-			anim.play(\"back_walk\")
-		elif movement == 0:
-			anim.play(\"idle\")
-"
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_vypra"]
-radius = 2.6874194
+radius = 3.0184617
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bktlc"]
 atlas = ExtResource("1_bybgf")
@@ -596,30 +528,33 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_lx8r4"]
 radius = 8.333334
 
-[node name="player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
 collision_layer = 2
 collision_mask = 2
-script = SubResource("GDScript_bktlc")
+motion_mode = 1
+script = ExtResource("1_s0nk1")
+stats = ExtResource("2_ms0oa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_vypra")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1.3333334)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_vkxtg")
 animation = &"sword_attack_left"
 offset = Vector2(0, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, 1)
 zoom = Vector2(2, 2)
+position_smoothing_enabled = true
 
-[node name="player_hitbox" type="Area2D" parent="."]
+[node name="Player_hitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player_hitbox"]
-position = Vector2(0, -6.3333335)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_hitbox"]
+position = Vector2(0, -6.666667)
 shape = SubResource("CircleShape2D_lx8r4")
 
 [node name="attack_cooldown" type="Timer" parent="."]
@@ -628,7 +563,7 @@ wait_time = 0.5
 [node name="deal_attack_timer" type="Timer" parent="."]
 wait_time = 0.54
 
-[connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
-[connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="body_entered" from="Player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="Player_hitbox" to="." method="_on_player_hitbox_body_exited"]
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
