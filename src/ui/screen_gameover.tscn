@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbur12b8b5aua"]
+
+[ext_resource type="Script" uid="uid://deicavwaeivw1" path="res://src/ui/screen_gameover.gd" id="1_i5uy0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_33bsl"]
+font_size = 100
+shadow_size = 10
+
+[node name="GameOver" type="CanvasLayer"]
+script = ExtResource("1_i5uy0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 120
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "game over"
+label_settings = SubResource("LabelSettings_33bsl")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnCredits" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "  credits  "
+
+[node name="BtnRestart" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 24
+text = "  spelen  "

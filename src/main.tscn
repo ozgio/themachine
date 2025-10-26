@@ -1,5 +1,6 @@
-[gd_scene load_steps=27 format=4 uid="uid://xt6vbwwmf4no"]
+[gd_scene load_steps=31 format=4 uid="uid://xt6vbwwmf4no"]
 
+[ext_resource type="Script" uid="uid://cnju8eyxtsghg" path="res://src/main.gd" id="1_ib8ht"]
 [ext_resource type="Script" uid="uid://cv82t1da3gyoa" path="res://src/player/inventory.gd" id="1_uewes"]
 [ext_resource type="PackedScene" uid="uid://c6xllxi1raxd6" path="res://src/entities/tree.tscn" id="5_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://cv3cn8d1m2u6l" path="res://src/entities/tree2.tscn" id="5_kf8lf"]
@@ -18,6 +19,9 @@
 [ext_resource type="PackedScene" uid="uid://6rqrq2t7rv3u" path="res://src/ui/energy_bar.tscn" id="13_tb146"]
 [ext_resource type="Script" uid="uid://bggq02exw5lmi" path="res://src/ui/energy_bar.gd" id="14_e7lu8"]
 [ext_resource type="LabelSettings" uid="uid://t5qh06e17fem" path="res://src/ui/label_shadow.tres" id="17_e7lu8"]
+[ext_resource type="PackedScene" uid="uid://cbur12b8b5aua" path="res://src/ui/screen_gameover.tscn" id="19_d7bab"]
+[ext_resource type="PackedScene" uid="uid://bqp2fln6xqmnj" path="res://src/ui/screen_start.tscn" id="20_ib8ht"]
+[ext_resource type="PackedScene" uid="uid://dwarstv5ps7qh" path="res://src/ui/screen_credits.tscn" id="21_43aqp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tb146"]
 texture = ExtResource("7_mlv6i")
@@ -1329,6 +1333,7 @@ size = Vector2(2279.875, 1248.25)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_ib8ht")
 
 [node name="PlayerInventory" type="Node2D" parent="." groups=["Inventory"]]
 script = ExtResource("1_uewes")
@@ -1509,3 +1514,27 @@ layout_mode = 2
 text = "take crystals to the base"
 label_settings = ExtResource("17_e7lu8")
 horizontal_alignment = 1
+
+[node name="Screens" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="Screens"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="ScreenGameOver" parent="Screens" instance=ExtResource("19_d7bab")]
+layer = 5
+visible = false
+
+[node name="ScreenHowTo" parent="Screens" instance=ExtResource("20_ib8ht")]
+layer = 5
+visible = false
+
+[node name="ScreenCredits" parent="Screens" instance=ExtResource("21_43aqp")]
+layer = 5
+visible = false
