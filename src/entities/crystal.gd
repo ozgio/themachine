@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+signal picked()
+
 @onready var area:Area2D = $Area2D
 @export var stats:CollectableStats
 @onready var spark:CPUParticles2D = $CPUParticles2D
@@ -16,5 +18,6 @@ func _on_area_entered(area:Area2D):
 	var tween := Tweenx.new(self)
 	tween.fadeOut(0.2)
 	spark.emitting = true
+	picked.emit()
 	await tween.finished
 	queue_free()

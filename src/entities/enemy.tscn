@@ -1,16 +1,53 @@
-[gd_scene load_steps=14 format=3 uid="uid://2oqfqxx5b61g"]
+[gd_scene load_steps=20 format=3 uid="uid://2oqfqxx5b61g"]
 
 [ext_resource type="Script" uid="uid://d0uinlspwu77b" path="res://src/entities/enemy2d.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://gflbjewpunpj" path="res://assets/own/fancy_blob.png" id="1_7k104"]
 [ext_resource type="Resource" uid="uid://1hp4ckm0pnpm" path="res://src/resources/alien_0.tres" id="2_h6j4r"]
 [ext_resource type="Script" uid="uid://k6dp1fcm264d" path="res://src/player/hurtbox.gd" id="3_l3u0p"]
 [ext_resource type="Resource" uid="uid://brojrnkyk8h6m" path="res://src/resources/enemy_attack_0.tres" id="3_rt1vh"]
+[ext_resource type="Texture2D" uid="uid://7xa0wr032ald" path="res://assets/dod/blob_green.png" id="4_prlnf"]
 [ext_resource type="Script" uid="uid://bpohj4tetowvw" path="res://src/player/attack_hitbox.gd" id="6_6j36w"]
 [ext_resource type="Script" uid="uid://cobs6xf2s3j2t" path="res://src/player/weapon_holder.gd" id="6_ttpmo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_epg4t"]
 radius = 6.0
 height = 14.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vqrf"]
+atlas = ExtResource("4_prlnf")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxlad"]
+atlas = ExtResource("4_prlnf")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f65kk"]
+atlas = ExtResource("4_prlnf")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_glnd0"]
+atlas = ExtResource("4_prlnf")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r8801"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vqrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxlad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f65kk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glnd0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4gyqm"]
 atlas = ExtResource("1_7k104")
@@ -49,9 +86,18 @@ visible = false
 position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_epg4t")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="GreenBlob" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.0000014, -5.500001)
+scale = Vector2(1.6250001, 1.4375)
+sprite_frames = SubResource("SpriteFrames_r8801")
+autoplay = "default"
+frame = 2
+frame_progress = 0.21155965
+
+[node name="WhiteBlob" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_qi2p4")
-frame_progress = 0.47518966
+frame_progress = 0.094876304
 offset = Vector2(0, -6)
 
 [node name="PlayerDetection" type="Area2D" parent="."]
@@ -91,3 +137,23 @@ attacking = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
 position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_ttpmo")
+
+[node name="Hud" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -10.0
+offset_top = -18.0
+offset_right = 12.0
+offset_bottom = -16.0
+
+[node name="HealthBarBG" type="ColorRect" parent="Hud"]
+layout_mode = 0
+offset_right = 21.0
+offset_bottom = 2.0
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="HealthBar" type="ColorRect" parent="Hud/HealthBarBG"]
+layout_mode = 0
+offset_right = 21.0
+offset_bottom = 2.0
+color = Color(0.76, 0.5953333, 0, 1)

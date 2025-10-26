@@ -8,6 +8,9 @@ extends CharacterBody2D
 @export var speed := 10.0
 var friction:float = 500.0
 
+@onready var bar:ColorRect = $Hud/HealthBarBG/HealthBar
+var full_bar_width:float
+
 enum State{
 	idle,
 	chasing,
@@ -16,12 +19,17 @@ enum State{
 }
 
 var state:State = State.idle
-var health = 100
+var max_health := 100.0
+var health := 100.0
 
 func _ready() -> void:
+	full_bar_width = bar.size.x
 	hurtbox.hurt.connect(_on_damage)
 	playerDetection.area_entered.connect(_on_detection_area_entered)
 	playerDetection.area_exited.connect(_on_detection_area_exited)
+
+func _process(delta: float) -> void:
+	bar.scale.x = (health / max_health)
 
 func _physics_process(delta):
 	#deal_with_damage()
