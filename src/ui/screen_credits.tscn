@@ -12,18 +12,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "deze game is gemaakt door 4 mensen
-pixel art een beetje door
-doga cinar (9 jaar oud)
-enemy ai
-nazli cinar (45 jaar oud)
-alles wat overblijft (veel)
-gemaakt door
-ozgur cinar(45 jaar oud)
-+
-eren cinar(11 jaar oud)
+pixel art een beetje door: doga (9 jaar oud)
+enemy ai: nazli 
+alles wat overblijft (veel) gemaakt door 
+ozgur & eren (11 jaar oud)
 
-deze game is gemaakt voor 
-de dutch herfts game jam 
+deze game is gemaakt voor de dutch herfts game jam 
+
+External Credits
+Stacked Pixel Font: https://monkopus.itch.io/stacked-pixel
+Astronaout: https://blingmoney.itch.io/topdownastronaut/
+Space Base: https://wenrexa.itch.io/space-full-assets-pack
+
+
 "
 horizontal_alignment = 1
 vertical_alignment = 1

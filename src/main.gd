@@ -14,6 +14,7 @@ func _ready() -> void:
 	screen_game_over.done.connect(on_start_game)
 	screen_game_over.open_credits.connect(on_open_credits)
 	screen_start.done.connect(on_start_game)
+	screen_start.open_credits.connect(on_open_credits)
 	screen_credits.done.connect(on_start_game)
 	habitat.stop_timer()
 	set_process(false)
