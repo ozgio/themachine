@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://bo6idh2lwyufo"]
+[gd_scene load_steps=84 format=3 uid="uid://bo6idh2lwyufo"]
 
 [ext_resource type="Texture2D" uid="uid://b222upu2y1dgf" path="res://assets/char/PNG/Unarmed_Walk/Unarmed_Walk_full.png" id="1_bybgf"]
 [ext_resource type="Script" uid="uid://b7uop3tqw8k4m" path="res://src/player/player.gd" id="1_s0nk1"]
@@ -539,8 +539,11 @@ size = Vector2(5, 10.333334)
 [sub_resource type="Resource" id="Resource_ylhto"]
 script = ExtResource("9_8ydov")
 damage = 10.0
-speed = 1.0
+speed = 0.30000000000000004
 metadata/_custom_type_script = "uid://du8rrwtbwmbhr"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ydov"]
+size = Vector2(11.666667, 5.333333)
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
@@ -601,9 +604,13 @@ collision_layer = 8
 collision_mask = 8
 script = ExtResource("9_l271a")
 weapon = NodePath("../WeaponHolder")
+timeout = 1.0
+debug_name = "Player"
+attacking = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackHitbox"]
-polygon = PackedVector2Array(-8, -3, -1.3333334, -4.666667, 2, -4.666667, 9.333334, -3, 2.3333335, -1.3333334, -2, -1.3333334)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2(0.16666667, -4.666667)
+shape = SubResource("RectangleShape2D_8ydov")
 
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]
