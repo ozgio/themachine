@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://2oqfqxx5b61g"]
+[gd_scene load_steps=23 format=3 uid="uid://2oqfqxx5b61g"]
 
 [ext_resource type="Script" uid="uid://d0uinlspwu77b" path="res://src/entities/enemy2d.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://gflbjewpunpj" path="res://assets/own/fancy_blob.png" id="1_7k104"]
@@ -74,6 +74,23 @@ height = 22.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ttpmo"]
 height = 20.0
 
+[sub_resource type="Curve" id="Curve_prlnf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.7669173, 0.64796907), -0.6547031, -0.6547031, 0, 0, Vector2(1, 0.040296674), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_1vqrf"]
+curve = SubResource("Curve_prlnf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xxlad"]
+particle_flag_disable_z = true
+radial_velocity_min = 9.999977
+radial_velocity_max = 88.239975
+gravity = Vector3(0, 0, 0)
+damping_min = 52.647003
+damping_max = 70.883
+color = Color(0.068598844, 0.6133775, 7.893444e-06, 1)
+alpha_curve = SubResource("CurveTexture_1vqrf")
+
 [node name="Enemy" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_4gyqm")
@@ -97,7 +114,7 @@ frame_progress = 0.21155965
 [node name="WhiteBlob" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qi2p4")
-frame_progress = 0.19065514
+frame_progress = 0.30254063
 offset = Vector2(0, -6)
 
 [node name="PlayerDetection" type="Area2D" parent="."]
@@ -157,3 +174,10 @@ layout_mode = 0
 offset_right = 21.0
 offset_bottom = 2.0
 color = Color(0.76, 0.5953333, 0, 1)
+
+[node name="TakeHitEffect" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 30
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_xxlad")

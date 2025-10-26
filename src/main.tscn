@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://xt6vbwwmf4no"]
+[gd_scene load_steps=26 format=4 uid="uid://xt6vbwwmf4no"]
 
 [ext_resource type="Script" uid="uid://cv82t1da3gyoa" path="res://src/player/inventory.gd" id="1_uewes"]
 [ext_resource type="PackedScene" uid="uid://c6xllxi1raxd6" path="res://src/entities/tree.tscn" id="5_5mrjc"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://jrh1usoi2b02" path="res://src/entities/habitat.tscn" id="13_srxbw"]
 [ext_resource type="PackedScene" uid="uid://6rqrq2t7rv3u" path="res://src/ui/energy_bar.tscn" id="13_tb146"]
 [ext_resource type="Script" uid="uid://bggq02exw5lmi" path="res://src/ui/energy_bar.gd" id="14_e7lu8"]
+[ext_resource type="LabelSettings" uid="uid://t5qh06e17fem" path="res://src/ui/label_shadow.tres" id="17_e7lu8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tb146"]
 texture = ExtResource("7_mlv6i")
@@ -1413,14 +1414,16 @@ offset_right = 880.0
 offset_bottom = 576.0
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("5_uewes")]
-position = Vector2(162, 233)
+[node name="Player" parent="." node_paths=PackedStringArray("spawn_area") groups=["Player"] instance=ExtResource("5_uewes")]
+position = Vector2(800, 184)
 collision_layer = 1
 collision_mask = 1
+spawn_area = NodePath("../PlayerSpawnArea")
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("10_mlv6i")
 EnemyScene = ExtResource("7_srxbw")
+max_num_enemies = 5
 
 [node name="SpawnArea" type="Control" parent="Enemies"]
 layout_mode = 3
@@ -1430,6 +1433,14 @@ offset_top = -160.0
 offset_right = 776.0
 offset_bottom = 576.0
 metadata/_edit_lock_ = true
+
+[node name="PlayerSpawnArea" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 856.0
+offset_top = 168.0
+offset_right = 880.0
+offset_bottom = 192.0
 
 [node name="Habitat" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("13_srxbw")]
 z_index = 10
@@ -1465,3 +1476,21 @@ player = NodePath("../../../../Player")
 layout_mode = 2
 size_flags_horizontal = 3
 inventory = NodePath("../../../../PlayerInventory")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Hud"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Hud/MarginContainer2"]
+layout_mode = 2
+text = "take crystals to the base"
+label_settings = ExtResource("17_e7lu8")
+horizontal_alignment = 1

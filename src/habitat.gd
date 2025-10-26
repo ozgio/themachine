@@ -5,6 +5,7 @@ extends Node2D
 @onready var machine:Node2D = $machine
 @onready var drop_area:Area2D = $machine/Drop_Detection
 @onready var timer: Timer = $Timer
+@onready var dropParticles:GPUParticles2D = $CrystalDropParticles
 var energy: int = 100
 var max_energy: int = 100
 
@@ -22,6 +23,7 @@ func _on_area_entered(area:Area2D):
 	print("crystal loaded ", count)
 	if count >= 1:
 		energy = energy + count * 10
+		dropParticles.restart()
 	if energy > max_energy:
 		energy = max_energy
 

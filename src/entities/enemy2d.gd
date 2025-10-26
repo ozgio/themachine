@@ -11,14 +11,17 @@ signal dead()
 @export var speed := 10.0
 var friction:float = 500.0
 
+@onready var take_hit_effect:GPUParticles2D = $TakeHitEffect
 @onready var bar:ColorRect = $Hud/HealthBarBG/HealthBar
 var full_bar_width:float
+
 
 enum State{
 	idle,
 	chasing,
 	attacking,
 	take_hit,
+	dead,
 }
 
 var state:State = State.idle
@@ -35,6 +38,7 @@ func _process(delta: float) -> void:
 	bar.scale.x = (health / max_health)
 
 func _physics_process(delta):
+	if state == State.dead: return
 	#deal_with_damage()
 	match state :
 		State.idle:
@@ -42,7 +46,7 @@ func _physics_process(delta):
 		State.chasing:
 			chase()
 		State.take_hit:
-			velocity = hurtbox.last_knockback_dir * 100
+			velocity = hurtbox.last_knockback_dir * 200
 			move_and_slide()
 			get_tree().create_timer(0.1).timeout.connect(on_knockback_end)
 	#if player_chase:
@@ -58,16 +62,19 @@ func chase():
 	move_and_slide()
 
 func _on_damage(damage:float):
-	health -= damage
+	health -= damage * 5
 	print("enemy got hit. damage: ", damage, "health: ", health)
 	if health <= 0:
 		health = 0
-		dead.emit()
+		#take_hit_effect.restart()
 		# TODO death animation
+		state = State.dead
+		var tweener := Tweenx.fadeOutNode(find_child("GreenBlob"), 0.2)
+		await tweener.finished
+		dead.emit()
 		queue_free()
 	else:
 		state = State.take_hit
-		#TODO hit animation
 
 #
 func _on_detection_area_entered(body: Node2D) -> void:
@@ -77,26 +84,3 @@ func _on_detection_area_entered(body: Node2D) -> void:
 #
 func _on_detection_area_exited(body: Node2D) -> void:
 	state = State.idle
-
-	#player = null
-	#player_chase = false
-#
-#func enemy():
-	#pass
-#
-#
-#func _on_enemy_hitbox_body_entered(body: Node2D) -> void:
-	#if body.has_method("player"):
-		#player_inattack_zone = true
-#
-#
-#func _on_enemy_hitbox_body_exited(body: Node2D) -> void:
-	#if body.has_method("player"):
-		#player_inattack_zone = true
-#
-#func deal_with_damage():
-	#if player_inattack_zone and global.player_current_attack == true:
-		#health = health - 20
-		#print("slime health = ", health)
-		#if health <= 0:
-			#self.queue_free()

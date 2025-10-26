@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var hurtbox:Hurtbox = $Hurtbox
 @onready var attack_timer:Timer = $deal_attack_timer
 @onready var attack_hitbox:AttackHitbox = $AttackHitbox
+@export var spawn_area:Control
 
 var speed:float
 var health:float
@@ -34,23 +35,29 @@ func start_attack():
 func player_movement(delta):
 	var input_vector = Input.get_vector( "move_left", "move_right", "move_up", "move_down")
 	velocity = speed * input_vector
-	attack_hitbox.knockback_dir = input_vector.normalized()
+	var move := false
 	if Input.is_action_pressed("move_right"):
 		current_dir = "right"
+		move = true
 		play_anim(1)
 	elif Input.is_action_pressed("move_left"):
 		current_dir = "left"
+		move = true
 		play_anim(1)
 	elif Input.is_action_pressed("move_down"):
 		current_dir = "down"
+		move = true
 		play_anim(1)
 	elif Input.is_action_pressed("move_up"):
 		current_dir = "up"
+		move = true
 		play_anim(1)
 	else:
 		play_anim(0)
 		velocity.y = 0
 		velocity.x = 0
+	if move:
+		attack_hitbox.knockback_dir = input_vector.normalized()
 	move_and_slide()
 
 func play_anim(movement):
@@ -90,4 +97,8 @@ func on_damage(damage:float):
 	if health <= 0:
 		anim.play("dead")
 		print("dead!")
+		await Tweenx.fadeOutNode(self, 0.2).finished
+
 		health = 100
+		position = spawn_area.position
+		Tweenx.fadeInNode(self, 0.1)

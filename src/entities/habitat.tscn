@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://jrh1usoi2b02"]
+[gd_scene load_steps=19 format=3 uid="uid://jrh1usoi2b02"]
 
 [ext_resource type="Script" uid="uid://bkdngtcg1sdcf" path="res://src/habitat.gd" id="1_jpjn8"]
 [ext_resource type="Texture2D" uid="uid://bqqaq2glux5ec" path="res://assets/Sprites - SciFi Buildings [177]/RandomBuildings/B01.png" id="2_cbdue"]
@@ -32,6 +32,23 @@ size = Vector2(166, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7e6t"]
 size = Vector2(165, 8)
+
+[sub_resource type="Curve" id="Curve_tmb47"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.56390977, 0.7820761), -0.69858587, -0.69858587, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_fhc75"]
+curve = SubResource("Curve_tmb47")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4k2ok"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(10, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, -98, 0)
+scale_min = 4.0
+scale_max = 4.0
+alpha_curve = SubResource("CurveTexture_fhc75")
 
 [node name="Habitat" type="Node2D"]
 script = ExtResource("1_jpjn8")
@@ -105,6 +122,7 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("6_4k2ok")
 
 [node name="Drop_Detection" type="Area2D" parent="machine"]
+visible = false
 position = Vector2(1, 0)
 collision_layer = 4
 collision_mask = 4
@@ -113,6 +131,7 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_tmb47")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="machine"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="machine/StaticBody2D"]
 position = Vector2(-2.0384789e-05, -1.6666666)
@@ -184,3 +203,13 @@ shape = SubResource("RectangleShape2D_fhc75")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="CrystalDropParticles" type="GPUParticles2D" parent="."]
+modulate = Color(1.0588765e-06, 0.5796337, 0.826436, 1)
+position = Vector2(424, -8)
+emitting = false
+amount = 120
+lifetime = 2.0
+one_shot = true
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_4k2ok")
