@@ -786,7 +786,7 @@ shape = SubResource("CircleShape2D_vypra")
 position = Vector2(0.33333313, 7.666667)
 scale = Vector2(0.7708334, 0.7708334)
 sprite_frames = SubResource("SpriteFrames_2smqc")
-animation = &"spawn"
+animation = &"dead"
 offset = Vector2(0, -15)
 
 [node name="Camera2D" type="Camera2D" parent="."]

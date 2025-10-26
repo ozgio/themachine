@@ -97,7 +97,7 @@ func on_damage(damage:float):
 	if health <= 0:
 		anim.play("dead")
 		print("dead!")
-		await Tweenx.fadeOutNode(self, 0.2).finished
+		await Tweenx.fadeOutNode(self, 0.8).finished
 
 		health = 100
 		position = spawn_area.position
