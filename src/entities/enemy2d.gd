@@ -1,4 +1,7 @@
+class_name Enemy
 extends CharacterBody2D
+
+signal dead()
 
 @onready var hurtbox:Hurtbox = $Hurtbox
 @onready var playerDetection:Area2D = $PlayerDetection
@@ -59,6 +62,7 @@ func _on_damage(damage:float):
 	print("enemy got hit. damage: ", damage, "health: ", health)
 	if health <= 0:
 		health = 0
+		dead.emit()
 		# TODO death animation
 		queue_free()
 	else:

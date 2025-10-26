@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://xt6vbwwmf4no"]
+[gd_scene load_steps=25 format=4 uid="uid://xt6vbwwmf4no"]
 
 [ext_resource type="Script" uid="uid://cv82t1da3gyoa" path="res://src/player/inventory.gd" id="1_uewes"]
 [ext_resource type="PackedScene" uid="uid://c6xllxi1raxd6" path="res://src/entities/tree.tscn" id="5_5mrjc"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://wobttbjwc88o" path="res://assets/own/world2.png" id="8_e7lu8"]
 [ext_resource type="Texture2D" uid="uid://buo1tfupl22d" path="res://assets/own/not_world.png" id="9_okx7f"]
 [ext_resource type="PackedScene" uid="uid://bym3dw4ys22f8" path="res://src/ui/health_bar.tscn" id="10_mgm53"]
+[ext_resource type="Script" uid="uid://bvx51e7qfbfgo" path="res://src/enemy_manager.gd" id="10_mlv6i"]
 [ext_resource type="PackedScene" uid="uid://dht28x5qdt0sf" path="res://src/ui/inventory_bar.tscn" id="12_kqbth"]
 [ext_resource type="PackedScene" uid="uid://jrh1usoi2b02" path="res://src/entities/habitat.tscn" id="13_srxbw"]
 [ext_resource type="PackedScene" uid="uid://6rqrq2t7rv3u" path="res://src/ui/energy_bar.tscn" id="13_tb146"]
@@ -1322,7 +1323,7 @@ sources/4 = SubResource("TileSetAtlasSource_ib8ht")
 size = Vector2(4464, 730)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mlv6i"]
-size = Vector2(2279.875, 969)
+size = Vector2(2279.875, 1248.25)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -1341,16 +1342,16 @@ metadata/_edit_lock_ = true
 [node name="StaticBody2D" type="StaticBody2D" parent="Ground"]
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Ground/StaticBody2D"]
-position = Vector2(376, -893)
+position = Vector2(368, -760)
 shape = SubResource("RectangleShape2D_tb146")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground/StaticBody2D"]
-position = Vector2(2331, 132.0625)
+position = Vector2(2275.75, 132.0625)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_mlv6i")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Ground/StaticBody2D"]
-position = Vector2(-1460.5, 56.00001)
+position = Vector2(-1376.125, 56.000015)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_mlv6i")
 
@@ -1406,10 +1407,11 @@ CrystalScene = ExtResource("6_kqbth")
 [node name="SpawnArea" type="Control" parent="Crystals"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -736.0
-offset_top = -384.0
-offset_right = 1576.0
+offset_left = -600.0
+offset_top = -232.0
+offset_right = 880.0
 offset_bottom = 576.0
+metadata/_edit_lock_ = true
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("5_uewes")]
 position = Vector2(162, 233)
@@ -1417,17 +1419,17 @@ collision_layer = 1
 collision_mask = 1
 
 [node name="Enemies" type="Node2D" parent="."]
+script = ExtResource("10_mlv6i")
+EnemyScene = ExtResource("7_srxbw")
 
 [node name="SpawnArea" type="Control" parent="Enemies"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -344.0
-offset_top = -248.0
-offset_right = 1328.0
+offset_left = -208.0
+offset_top = -160.0
+offset_right = 776.0
 offset_bottom = 576.0
-
-[node name="Enemy" parent="Enemies" instance=ExtResource("7_srxbw")]
-position = Vector2(-33, 152)
+metadata/_edit_lock_ = true
 
 [node name="Habitat" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("13_srxbw")]
 z_index = 10

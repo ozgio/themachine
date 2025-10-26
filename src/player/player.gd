@@ -18,7 +18,6 @@ func _ready():
 	if max_health < health:
 		max_health = health
 	hurtbox.hurt.connect(on_damage)
-	attack_hitbox.monitorable = false
 	$AnimatedSprite2D.play("idle")
 
 func _physics_process(delta):
@@ -35,6 +34,7 @@ func start_attack():
 func player_movement(delta):
 	var input_vector = Input.get_vector( "move_left", "move_right", "move_up", "move_down")
 	velocity = speed * input_vector
+	attack_hitbox.knockback_dir = input_vector.normalized()
 	if Input.is_action_pressed("move_right"):
 		current_dir = "right"
 		play_anim(1)

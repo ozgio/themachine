@@ -97,7 +97,7 @@ frame_progress = 0.21155965
 [node name="WhiteBlob" type="AnimatedSprite2D" parent="."]
 visible = false
 sprite_frames = SubResource("SpriteFrames_qi2p4")
-frame_progress = 0.094876304
+frame_progress = 0.19065514
 offset = Vector2(0, -6)
 
 [node name="PlayerDetection" type="Area2D" parent="."]
