@@ -2,7 +2,7 @@ extends StaticBody2D
 
 @onready var area:Area2D = $Area2D
 @export var stats:CollectableStats
-
+@onready var spark:CPUParticles2D = $CPUParticles2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	area.area_entered.connect(_on_area_entered)
@@ -15,5 +15,6 @@ func _on_area_entered(area:Area2D):
 	invetory.add_item(stats)
 	var tween := Tweenx.new(self)
 	tween.fadeOut(0.2)
+	spark.emitting = true
 	await tween.finished
 	queue_free()

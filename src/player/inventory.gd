@@ -19,13 +19,14 @@ func add_item(item:CollectableStats):
 	items.append(ItemStack.new(item, 1))
 	updated.emit()
 
-func remove_item(id: String) -> bool:
+func remove_item(id: String) -> int:
 	for el in items:
 		if el.item.id == id and el.count > 0:
-			el.count -= 1
+			var count := el.count
+			el.count = 0
 			updated.emit()
-			return true
-	return false
+			return count
+	return 0
 
 class ItemStack:
 	var item:CollectableStats

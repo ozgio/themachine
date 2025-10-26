@@ -1,21 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://bym3dw4ys22f8"]
+[gd_scene load_steps=2 format=3 uid="uid://6rqrq2t7rv3u"]
 
-[ext_resource type="Script" uid="uid://y8guc0d74yg5" path="res://src/ui/health_bar.gd" id="1_ienf7"]
+[ext_resource type="Script" uid="uid://y8guc0d74yg5" path="res://src/ui/health_bar.gd" id="1_q6fxi"]
 
-[node name="HealthBar" type="Control"]
+[node name="EnergyBar" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ienf7")
+script = ExtResource("1_q6fxi")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_right = 56.0
 offset_bottom = 22.0
-text = "Health"
+text = "energy"
 vertical_alignment = 1
 
 [node name="Background" type="ColorRect" parent="."]
@@ -29,7 +29,7 @@ color = Color(0, 0, 0, 0.47058824)
 layout_mode = 0
 offset_right = 80.0
 offset_bottom = 20.0
-color = Color(0, 0.36666667, 0.5, 1)
+color = Color(0, 0.43, 0.35116664, 1)
 
 [node name="Amount" type="Label" parent="."]
 unique_name_in_owner = true

@@ -181,3 +181,6 @@ shape = SubResource("RectangleShape2D_fhc75")
 [node name="CollisionShape2D12" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(648, 233)
 shape = SubResource("RectangleShape2D_fhc75")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

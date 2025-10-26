@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq2v2mfguw7oq"]
+[gd_scene load_steps=8 format=3 uid="uid://bq2v2mfguw7oq"]
 
 [ext_resource type="Texture2D" uid="uid://lulo4qql16fd" path="res://assets/own/crystal.png" id="1_f7cmv"]
 [ext_resource type="Script" uid="uid://cg7njpd5p1j5m" path="res://src/resources/collectable_stats.gd" id="2_4mfek"]
@@ -15,6 +15,11 @@ size = Vector2(8, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mfek"]
 size = Vector2(13, 18)
+
+[sub_resource type="Curve" id="Curve_4mfek"]
+_limits = [0.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Crystal" type="StaticBody2D"]
 script = ExtResource("2_mehiu")
@@ -36,3 +41,23 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-0.5, -6)
 shape = SubResource("RectangleShape2D_4mfek")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -5)
+emitting = false
+lifetime = 0.5
+emission_shape = 2
+emission_sphere_radius = 4.5
+direction = Vector2(-90, 2)
+spread = 108.09
+gravity = Vector2(0, -100)
+linear_accel_max = 100.0
+damping_max = 5.0
+angle_min = -415.7
+angle_max = 623.5
+scale_amount_min = 0.1
+color = Color(0.08381569, 0.7564044, 0.7564044, 0.8627451)
+anim_speed_min = 6.59
+anim_speed_max = 22.43
+anim_speed_curve = SubResource("Curve_4mfek")

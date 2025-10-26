@@ -12,3 +12,4 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	bar.scale.x = (player.health / player.max_health)
+	amountLabel.text = str(int(player.health)) + "/" + str(int(player.max_health))
