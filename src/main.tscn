@@ -176,7 +176,7 @@ position = Vector2(-176, 136)
 position = Vector2(-33, 152)
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("5_uewes")]
-position = Vector2(162, 233)
+position = Vector2(8, 168.00002)
 collision_layer = 1
 collision_mask = 1
 

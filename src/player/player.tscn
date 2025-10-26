@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://bo6idh2lwyufo"]
+[gd_scene load_steps=83 format=3 uid="uid://bo6idh2lwyufo"]
 
 [ext_resource type="Texture2D" uid="uid://b222upu2y1dgf" path="res://assets/char/PNG/Unarmed_Walk/Unarmed_Walk_full.png" id="1_bybgf"]
 [ext_resource type="Script" uid="uid://b7uop3tqw8k4m" path="res://src/player/player.gd" id="1_s0nk1"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://c5fy3xwouulyu" path="res://assets/char/PNG/Unarmed_Idle/Unarmed_Idle_full.png" id="3_lx8r4"]
 [ext_resource type="Texture2D" uid="uid://cbpbxprpmfu3t" path="res://assets/char/PNG/Sword_attack/Sword_attack_full.png" id="4_cadss"]
 [ext_resource type="Script" uid="uid://bvalkjwv8s7g6" path="res://src/player/player_item_hitbox.gd" id="7_o822w"]
+[ext_resource type="Script" uid="uid://k6dp1fcm264d" path="res://src/player/hurtbox.gd" id="7_ylhto"]
+[ext_resource type="Script" uid="uid://cobs6xf2s3j2t" path="res://src/player/weapon_holder.gd" id="8_x42xx"]
+[ext_resource type="Script" uid="uid://du8rrwtbwmbhr" path="res://src/resources/weapon_stats.gd" id="9_8ydov"]
+[ext_resource type="Script" uid="uid://bpohj4tetowvw" path="res://src/player/attack_hitbox.gd" id="9_l271a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vypra"]
 radius = 3.0184617
@@ -527,10 +531,16 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lx8r4"]
-radius = 8.333334
+radius = 3.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x42xx"]
 size = Vector2(5, 10.333334)
+
+[sub_resource type="Resource" id="Resource_ylhto"]
+script = ExtResource("9_8ydov")
+damage = 10.0
+speed = 1.0
+metadata/_custom_type_script = "uid://du8rrwtbwmbhr"
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
@@ -555,18 +565,23 @@ offset = Vector2(0, -15)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
-[node name="Player_hitbox" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_hitbox"]
-position = Vector2(0, -6.666667)
-shape = SubResource("CircleShape2D_lx8r4")
-
 [node name="attack_cooldown" type="Timer" parent="."]
 wait_time = 0.5
 
 [node name="deal_attack_timer" type="Timer" parent="."]
-wait_time = 0.54
+wait_time = 0.5
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+monitorable = false
+script = ExtResource("7_ylhto")
+vulnerable_to = Array[int]([1])
+debug_name = "Player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -5.3333335)
+shape = SubResource("CircleShape2D_lx8r4")
 
 [node name="PlayerItemHitbox" type="Area2D" parent="."]
 collision_layer = 4
@@ -577,7 +592,18 @@ script = ExtResource("7_o822w")
 position = Vector2(0.49999994, -5.166667)
 shape = SubResource("RectangleShape2D_x42xx")
 
-[connection signal="body_entered" from="Player_hitbox" to="." method="_on_player_hitbox_body_entered"]
-[connection signal="body_exited" from="Player_hitbox" to="." method="_on_player_hitbox_body_exited"]
+[node name="WeaponHolder" type="Node2D" parent="."]
+script = ExtResource("8_x42xx")
+stats = SubResource("Resource_ylhto")
+
+[node name="AttackHitbox" type="Area2D" parent="." node_paths=PackedStringArray("weapon")]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("9_l271a")
+weapon = NodePath("../WeaponHolder")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackHitbox"]
+polygon = PackedVector2Array(-8, -3, -1.3333334, -4.666667, 2, -4.666667, 9.333334, -3, 2.3333335, -1.3333334, -2, -1.3333334)
+
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="deal_attack_timer" to="." method="_on_deal_attack_timer_timeout"]

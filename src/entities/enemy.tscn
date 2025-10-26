@@ -1,7 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://2oqfqxx5b61g"]
+[gd_scene load_steps=14 format=3 uid="uid://2oqfqxx5b61g"]
 
 [ext_resource type="Script" uid="uid://d0uinlspwu77b" path="res://src/entities/enemy2d.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://gflbjewpunpj" path="res://assets/own/fancy_blob.png" id="1_7k104"]
+[ext_resource type="Resource" uid="uid://1hp4ckm0pnpm" path="res://src/resources/alien_0.tres" id="2_h6j4r"]
+[ext_resource type="Script" uid="uid://k6dp1fcm264d" path="res://src/player/hurtbox.gd" id="3_l3u0p"]
+[ext_resource type="Resource" uid="uid://brojrnkyk8h6m" path="res://src/resources/enemy_attack_0.tres" id="3_rt1vh"]
+[ext_resource type="Script" uid="uid://bpohj4tetowvw" path="res://src/player/attack_hitbox.gd" id="6_6j36w"]
+[ext_resource type="Script" uid="uid://cobs6xf2s3j2t" path="res://src/player/weapon_holder.gd" id="6_ttpmo"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_epg4t"]
+radius = 6.0
+height = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4gyqm"]
 atlas = ExtResource("1_7k104")
@@ -21,38 +30,60 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_iifgy"]
 radius = 97.00516
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_epg4t"]
-radius = 6.0
-height = 14.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ckup4"]
+radius = 11.0
+height = 22.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4gyqm"]
-radius = 14.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ttpmo"]
+height = 20.0
 
 [node name="Enemy" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_4gyqm")
+stats = ExtResource("2_h6j4r")
+weapon_stats = ExtResource("3_rt1vh")
+
+[node name="PyhsicalCollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_epg4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qi2p4")
 offset = Vector2(0, -6)
 
 [node name="Detection_Area" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection_Area"]
 shape = SubResource("CircleShape2D_iifgy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("3_l3u0p")
+vulnerable_to = Array[int]([0])
+debug_name = "Enemy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -5)
-shape = SubResource("CapsuleShape2D_epg4t")
+shape = SubResource("CapsuleShape2D_ckup4")
 
-[node name="Enemy_hitbox" type="Area2D" parent="."]
+[node name="WeaponHolder" type="Node2D" parent="."]
+script = ExtResource("6_ttpmo")
+stats = ExtResource("3_rt1vh")
+metadata/_custom_type_script = "uid://cobs6xf2s3j2t"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy_hitbox"]
-position = Vector2(0, -4)
-shape = SubResource("CircleShape2D_4gyqm")
+[node name="AttackHitbox" type="Area2D" parent="." node_paths=PackedStringArray("weapon")]
+collision_layer = 16
+collision_mask = 16
+monitoring = false
+script = ExtResource("6_6j36w")
+weapon = NodePath("../WeaponHolder")
+group = 1
+attacking = true
 
-[connection signal="body_entered" from="Detection_Area" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_exited" from="Detection_Area" to="." method="_on_detection_area_body_exited"]
-[connection signal="body_entered" from="Enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
-[connection signal="body_exited" from="Enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox"]
+position = Vector2(0, -6)
+shape = SubResource("CapsuleShape2D_ttpmo")

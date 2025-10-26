@@ -2,6 +2,10 @@ class_name Player
 extends CharacterBody2D
 
 @export var stats:CharStats
+@onready var hurtbox:Hurtbox = $Hurtbox
+@onready var attack_timer:Timer = $deal_attack_timer
+@onready var attack_hitbox:AttackHitbox = $AttackHitbox
+
 var speed:float
 var health:float
 var max_health:float
@@ -13,10 +17,20 @@ func _ready():
 	max_health = stats.max_health
 	if max_health < health:
 		max_health = health
+	hurtbox.hurt.connect(on_damage)
+	attack_hitbox.monitorable = false
 	$AnimatedSprite2D.play("idle")
 
 func _physics_process(delta):
 	player_movement(delta)
+	if Input.is_action_pressed("attack"):
+		start_attack()
+
+func start_attack():
+	if attack_hitbox.attacking: return
+	print("attacking")
+	attack_hitbox.attack()
+
 
 func player_movement(delta):
 	var input_vector = Input.get_vector( "move_left", "move_right", "move_up", "move_down")
@@ -66,3 +80,12 @@ func play_anim(movement):
 			anim.play("back_walk")
 		elif movement == 0:
 			anim.play("idle")
+
+func on_damage(damage:float):
+	health = health - damage
+	if health <= 0:
+		health = 0
+	print("player get damage: ", damage, ",  health: ", health)
+	if health <= 0:
+		print("dead!")
+		health = 100
