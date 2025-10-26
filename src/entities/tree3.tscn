@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://botq31xvctqpb"]
+
+[ext_resource type="Texture2D" uid="uid://bk3p5po2uqwsq" path="res://assets/dod/knotted_tree.png" id="1_nu700"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1kwge"]
+radius = 16.0
+
+[node name="Tree3" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -40)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("1_nu700")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1kwge")

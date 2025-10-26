@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://xt6vbwwmf4no"]
+[gd_scene load_steps=27 format=4 uid="uid://xt6vbwwmf4no"]
 
 [ext_resource type="Script" uid="uid://cv82t1da3gyoa" path="res://src/player/inventory.gd" id="1_uewes"]
 [ext_resource type="PackedScene" uid="uid://c6xllxi1raxd6" path="res://src/entities/tree.tscn" id="5_5mrjc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bo6idh2lwyufo" path="res://src/player/player.tscn" id="5_uewes"]
 [ext_resource type="PackedScene" uid="uid://bq2v2mfguw7oq" path="res://src/entities/crystal.tscn" id="6_kqbth"]
 [ext_resource type="Texture2D" uid="uid://0ivuxc0f3l8c" path="res://assets/own/world.png" id="7_mlv6i"]
+[ext_resource type="PackedScene" uid="uid://botq31xvctqpb" path="res://src/entities/tree3.tscn" id="7_okx7f"]
 [ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://src/entities/enemy.tscn" id="7_srxbw"]
 [ext_resource type="Script" uid="uid://cgot7yjgq1slo" path="res://src/crystal_manager.gd" id="7_tb146"]
 [ext_resource type="Texture2D" uid="uid://wobttbjwc88o" path="res://assets/own/world2.png" id="8_e7lu8"]
@@ -1383,23 +1384,37 @@ scale = Vector2(1.4, 1.4)
 position = Vector2(823.99994, 632.00006)
 scale = Vector2(1.4, 1.4)
 
+[node name="Tree12" parent="RigidObjects" instance=ExtResource("5_kf8lf")]
+position = Vector2(776, -128)
+rotation = 3.1415925
+scale = Vector2(1, -1)
+
+[node name="Tree14" parent="RigidObjects" instance=ExtResource("5_kf8lf")]
+position = Vector2(-424, -192)
+rotation = 3.1415925
+scale = Vector2(2, -2)
+
+[node name="Tree13" parent="RigidObjects" instance=ExtResource("5_kf8lf")]
+position = Vector2(-728, 432)
+
 [node name="Tree2" parent="RigidObjects" instance=ExtResource("5_kf8lf")]
 position = Vector2(-96, 480)
-
-[node name="Tree2" parent="RigidObjects/Tree2" instance=ExtResource("5_kf8lf")]
-position = Vector2(872, -608)
-scale = Vector2(-1, 1)
-
-[node name="Tree3" parent="RigidObjects/Tree2" instance=ExtResource("5_kf8lf")]
-position = Vector2(-632, -48)
-
-[node name="Tree2" parent="RigidObjects/Tree2/Tree3" instance=ExtResource("5_kf8lf")]
-position = Vector2(304, -624)
-scale = Vector2(-2, 2)
 
 [node name="Tree3" parent="RigidObjects" instance=ExtResource("5_5mrjc")]
 position = Vector2(520, 448)
 scale = Vector2(-1, 1)
+
+[node name="Tree8" parent="RigidObjects" instance=ExtResource("7_okx7f")]
+position = Vector2(936, 552)
+
+[node name="Tree10" parent="RigidObjects" instance=ExtResource("7_okx7f")]
+position = Vector2(944, -168)
+
+[node name="Tree11" parent="RigidObjects" instance=ExtResource("7_okx7f")]
+position = Vector2(672, 8)
+
+[node name="Tree9" parent="RigidObjects" instance=ExtResource("7_okx7f")]
+position = Vector2(632, 376)
 
 [node name="Crystals" type="Node2D" parent="."]
 script = ExtResource("7_tb146")
